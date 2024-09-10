@@ -26,6 +26,11 @@ const getSingleNote=async(req,res,next)=>{
     res.json({message:"this is your note",note})
 
 }
+const getNotesForSpecificUser=async(req,res,next)=>{
+    let notes=await noteModel.find({createdBy:req.user._id})
+    if(notes.length==0)return res.json({message:"there is no notes"})
+    res.json({message:"this is all notes belonging to you ",notes})
+}
 
 export{
     addNote,
@@ -33,4 +38,5 @@ export{
     deleteNote,
     getAllNotes,
     getSingleNote,
+    getNotesForSpecificUser
 }
